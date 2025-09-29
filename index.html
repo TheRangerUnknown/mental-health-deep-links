@@ -1,23 +1,24 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Redirecting...</title>
+  <title>Open App</title>
+</head>
+<body>
+  <p>Click the button below to open the app:</p>
+  <a id="openApp" href="#">Open App</a>
+
   <script>
     const params = new URLSearchParams(window.location.search);
     const userId = params.get('userId');
     const otp = params.get('otp');
+    const link = `myapp://verify?userId=${userId}&otp=${otp}`;
 
-    if (userId && otp) {
-      // Deep link to Flutter app
-      window.location.href = `myapp://verify?userId=${userId}&otp=${otp}`;
-    } else {
-      document.body.innerHTML = "<p>Invalid verification link.</p>";
-    }
+    const a = document.getElementById('openApp');
+    a.href = link;
+
+    // Optional: try to open automatically (may fail in some browsers)
+    setTimeout(() => { window.location.href = link }, 1000);
   </script>
-</head>
-<body>
-  <p>Redirecting to app...</p>
 </body>
 </html>
