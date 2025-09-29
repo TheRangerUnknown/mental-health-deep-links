@@ -2,23 +2,36 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Open App</title>
+  <title>Redirecting...</title>
+  <script>
+    function openApp() {
+      const params = new URLSearchParams(window.location.search);
+      const userId = params.get('userId');
+      const otp = params.get('otp');
+
+      if (userId && otp) {
+        const deepLink = `myapp://verify?userId=${userId}&otp=${otp}`;
+
+        // Try opening the app
+        setTimeout(() => {
+          window.location.href = deepLink;
+        }, 500); // small delay
+
+        // Fallback after 2 seconds if app not opened
+        setTimeout(() => {
+          document.getElementById("fallback").style.display = "block";
+        }, 2000);
+      } else {
+        document.body.innerHTML = "<p>Invalid verification link.</p>";
+      }
+    }
+    window.onload = openApp;
+  </script>
 </head>
 <body>
-  <p>Click the button below to open the app:</p>
-  <a id="openApp" href="#">Open App</a>
-
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const userId = params.get('userId');
-    const otp = params.get('otp');
-    const link = `myapp://verify?userId=${userId}&otp=${otp}`;
-
-    const a = document.getElementById('openApp');
-    a.href = link;
-
-    // Optional: try to open automatically (may fail in some browsers)
-    setTimeout(() => { window.location.href = link }, 1000);
-  </script>
+  <p>Redirecting to app...</p>
+  <div id="fallback" style="display:none;">
+    <p>If the app didn’t open, <a href="https://play.google.com/store/apps/details?id=com.example.healthapp">download it here</a>.</p>
+  </div>
 </body>
 </html>
