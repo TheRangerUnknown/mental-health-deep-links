@@ -24,6 +24,7 @@
     function openApp() {
       // Parse userId and otp from query string
       const params = new URLSearchParams(window.location.search);
+      console.log(params);
       const userId = params.get('uid');
       const otp = params.get('otp');
 
