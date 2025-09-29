@@ -1,12 +1,23 @@
-<!-- index.html at the root of your repo -->
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Deep Link Verification</title>
-  </head>
-  <body>
-    <h1>GitHub Pages Hosting Deep Link Files</h1>
-    <p>This page exists so GitHub Pages doesn’t show a 404.</p>
-  </body>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get('userId');
+    const otp = params.get('otp');
+
+    if (userId && otp) {
+      // Deep link to Flutter app
+      window.location.href = `myapp://verify?userId=${userId}&otp=${otp}`;
+    } else {
+      document.body.innerHTML = "<p>Invalid verification link.</p>";
+    }
+  </script>
+</head>
+<body>
+  <p>Redirecting to app...</p>
+</body>
 </html>
